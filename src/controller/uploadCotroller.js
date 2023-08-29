@@ -9,11 +9,9 @@ const storage = getStorage(firebaseConfig.app);
 const Mission = require('../models/Mission');
 class UploadController {
     async uploadFileProof(req, res) {
-        // const mission = await Mission.findById(req.params.missionId);
         const file = req.file;
-        const storageRef = ref(storage, 'proof/test');
-        // const storageRef = ref(storage, 'proof/' + mission._id);
-
+        // const storageRef = ref(storage, 'proof/test');
+        const storageRef = ref(storage, 'proof/' + req.params.missionId);
         const metadata = { contentType: file.mimetype };
         const snapshot = await uploadBytesResumable(
             storageRef,

@@ -6,13 +6,13 @@ const {
 } = require('firebase/analytics');
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyC12pKhyHAea3x1GhfS-5LHlIOGiotoJrQ',
-    authDomain: 'lovepoint-744b7.firebaseapp.com',
-    projectId: 'lovepoint-744b7',
-    storageBucket: 'lovepoint-744b7.appspot.com',
-    messagingSenderId: '618438047417',
-    appId: '1:618438047417:web:05533d50b6ac21f2e24d68',
-    measurementId: 'G-9RRF30KG5S',
+    apiKey: process.env.API_KEY_FIREBASE,
+    authDomain: process.env.AUTH_DOMAIN_FIREBASE,
+    projectId: process.env.PROJECT_ID_FIREBASE,
+    storageBucket: process.env.STORAGE_BUCKET_FIREBASE,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID_FIREBASE,
+    appId: process.env.APP_ID_FIREBASE,
+    measurementId: process.env.MEASUREMENT_ID_FIREBASE,
 };
 
 // Initialize Firebase
