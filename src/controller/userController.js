@@ -9,10 +9,11 @@ class UserController {
     }
     async changePoint(req, res) {
         const user = await User.findOne({ _id: req.params.userId });
+        const newPoint = user.point + req.query.change;
         const userUpdate = await User.findById(user._id, {
-            $set: { point: user.points + req.query.change },
+            $set: { point: newPoint },
         });
-        User.findById(user._id).then((userUpdate) =>
+        User.findById(userUpdate._id).then((userUpdate) =>
             res.status(200).json(userUpdate)
         );
     }
