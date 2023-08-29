@@ -9,7 +9,7 @@ class UserController {
     }
     async changePoint(req, res) {
         const user = await User.findOne({ _id: req.params.userId });
-        const newPoint = user.point + req.query.change;
+        const newPoint = user.point + parseFloat(req.query.change);
         const userUpdate = await User.findByIdAndUpdate(user._id, {
             $set: { point: newPoint },
         });
