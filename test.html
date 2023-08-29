@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Image Upload</title>
+    </head>
+    <body>
+        <h1>Image Upload</h1>
+        <form id="upload-form" enctype="multipart/form-data">
+            <label for="image">Select an image:</label>
+            <input type="file" name="file" id="image" />
+            <button type="submit">Upload Image</button>
+        </form>
+        <p id="message"></p>
+
+        <script>
+            const form = document.getElementById('upload-form');
+            const message = document.getElementById('message');
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+                console.log(formData);
+                try {
+                    await fetch('http://localhost:3000/upload/proof', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                } catch (error) {
+                    message.textContent = 'An error occurred during upload.';
+                    console.error(error);
+                }
+            });
+        </script>
+    </body>
+</html>
