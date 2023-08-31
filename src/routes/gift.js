@@ -10,5 +10,9 @@ router.delete(
     giftController.removeGift
 );
 router.get('/received', checkRules.origin, giftController.getGiftReceived);
-router.post('/received/add', checkRules.origin, giftController.addGiftReceived);
+router.post(
+    '/received/add/:giftId',
+    checkRules.origin,
+    giftController.addGiftReceived
+);
 module.exports = router;

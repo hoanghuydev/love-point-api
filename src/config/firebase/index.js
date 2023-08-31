@@ -1,4 +1,6 @@
 const { initializeApp } = require('firebase/app');
+const dotenv = require('dotenv');
+dotenv.config();
 const {
     getAnalytics,
     isSupported,

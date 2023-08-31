@@ -2,6 +2,10 @@ const Gift = require('../models/Gift');
 const Mission = require('../models/Mission');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+dotenv.config();
+const mailTemplate = require('../untils/mailTemplate');
+
 class MissionController {
     async getMissionList(req, res) {
         const missionList = await Mission.find({});
@@ -27,29 +31,30 @@ class MissionController {
     }
     async sendMailOfMission(req, res) {
         const mission = await Mission.findOne({ _id: req.params.missionId });
-
+        console.log(
+            process.env.EMAIL_ADDRESS + '\n' + process.env.EMAIL_PASSWORD
+        );
         let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_ADDRESS,
                 pass: process.env.EMAIL_PASSWORD,
             },
-            tls: {
-                rejectUnauthorized: false, // bỏ qua lỗi "self-signed certificate in certificate chain"
-            },
         });
-        // Create content for mail
+
         let mailOptions = {
             from: process.env.EMAIL_ADDRESS,
-            to: email,
+            to: req.body.email,
             subject: 'Love Mail',
-            text: mission.description,
+            html: mailTemplate('haha'),
         };
+
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.log(error);
+                return res.status(500).json('Email not sent');
             } else {
                 console.log('Email sent: ' + info.response);
                 return res.json('Email sent');
@@ -63,6 +68,11 @@ class MissionController {
                 $set: { urlProof: req.body.urlProof, status: 1 },
             }
         );
+        if (!reviewMission) {
+            return res.status(404).json({
+                message: 'Mission not found',
+            });
+        }
         await Mission.findById(reviewMission._id).then((mission) =>
             res.status(200).json(mission)
         );
@@ -74,6 +84,11 @@ class MissionController {
                 $set: { urlProof: '', status: 0 },
             }
         );
+        if (!missionRefuse) {
+            return res.status(404).json({
+                message: 'Mission not found',
+            });
+        }
         await Mission.findById(missionRefuse._id).then((mission) =>
             res.status(200).json(mission)
         );

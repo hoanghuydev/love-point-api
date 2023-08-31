@@ -15,12 +15,12 @@ router.put(
     missionController.changeStatus
 );
 router.post(
-    '/sendmail',
+    '/sendmail/:missionId',
     checkRules.checkAdmin,
     missionController.sendMailOfMission
 );
 router.put(
-    '/review/add/:missionId',
+    '/review/add',
     checkRules.checkAdmin,
     missionController.addMissionReviewing
 );
