@@ -24,10 +24,13 @@
                 const formData = new FormData(form);
                 console.log(formData);
                 try {
-                    await fetch('http://localhost:3000/upload/proof', {
-                        method: 'POST',
-                        body: formData,
-                    });
+                    await fetch(
+                        'https://love-point-api.vercel.app/upload/proof',
+                        {
+                            method: 'POST',
+                            body: formData,
+                        }
+                    );
                 } catch (error) {
                     message.textContent = 'An error occurred during upload.';
                     console.error(error);
