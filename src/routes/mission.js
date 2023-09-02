@@ -20,7 +20,7 @@ router.post(
     missionController.sendMailOfMission
 );
 router.put(
-    '/review/add',
+    '/review/add/:missionId',
     checkRules.checkAdmin,
     missionController.addMissionReviewing
 );
