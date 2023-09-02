@@ -16,7 +16,7 @@ router.put(
 );
 router.post(
     '/sendmail/:missionId',
-    checkRules.checkSelfToken,
+    checkRules.origin,
     missionController.sendMailOfMission
 );
 router.put(
