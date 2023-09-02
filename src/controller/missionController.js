@@ -31,9 +31,6 @@ class MissionController {
     }
     async sendMailOfMission(req, res) {
         const mission = await Mission.findOne({ _id: req.params.missionId });
-        console.log(
-            process.env.EMAIL_ADDRESS + '\n' + process.env.EMAIL_PASSWORD
-        );
         let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
@@ -48,7 +45,7 @@ class MissionController {
             from: process.env.EMAIL_ADDRESS,
             to: req.body.email,
             subject: 'Love Mail',
-            html: mailTemplate('haha'),
+            html: mailTemplate(mission.description),
         };
 
         transporter.sendMail(mailOptions, function (error, info) {

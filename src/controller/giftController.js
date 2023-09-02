@@ -8,7 +8,7 @@ class GiftController {
         const pageSize = parseInt(req.query.pageSize) || 0;
 
         if (pageSize === 0) {
-            const gifts = await Gift.find().sort({ point: -1 });
+            const gifts = await Gift.find().sort({ point: 1 });
             return res.json({
                 gifts,
                 totalCount: gifts.length,
@@ -18,7 +18,7 @@ class GiftController {
         const totalGifts = await Gift.countDocuments();
 
         // Truy vấn dữ liệu cho trang hiện tại
-        const gifts = await Gift.find()
+        let gifts = await Gift.find()
             .sort({ point: 1 })
             .skip((page - 1) * pageSize)
             .limit(pageSize);
