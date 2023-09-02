@@ -21,7 +21,7 @@ router.post(
 );
 router.put(
     '/review/add/:missionId',
-    checkRules.checkAdmin,
+    checkRules.origin,
     missionController.addMissionReviewing
 );
 router.put(
