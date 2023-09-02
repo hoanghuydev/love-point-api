@@ -93,7 +93,7 @@ class MissionController {
     async accpectReview(req, res, next) {
         try {
             const mission = await Mission.findById(req.params.missionId);
-            const user = await User.findOne({ username: req.body.username });
+            const user = await User.findOne({ _id: req.body.userId });
             const newPoint = user.point + mission.point;
             const updateUserPromise = User.findByIdAndUpdate(user._id, {
                 $set: { point: newPoint },
