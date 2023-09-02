@@ -51,6 +51,10 @@ class GiftController {
         const gift = await Gift.findById(req.params.giftId);
         const user = await User.findById(req.user.id);
         const newPoint = user.point - gift.point;
+        if (newPoint < 0)
+            return res
+                .status(401)
+                .json({ message: 'Enough Point To Exchange Gift' });
         const userUpdate = await User.findByIdAndUpdate(user._id, {
             $set: { point: newPoint },
         });
