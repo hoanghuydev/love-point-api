@@ -39,5 +39,10 @@ router.get(
     checkRules.origin,
     missionController.getMissionReviewList
 );
+router.get(
+    '/:missionId',
+    checkRules.origin,
+    missionController.getMissionReviewList
+);
 
 module.exports = router;

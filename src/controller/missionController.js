@@ -112,5 +112,9 @@ class MissionController {
         const missionList = await Mission.find({ status: 1 });
         return res.status(200).json(missionList);
     }
+    async getMission(req, res) {
+        const mission = await Mission.findById(req.params.missionId);
+        return res.status(200).json(mission);
+    }
 }
 module.exports = new MissionController();
