@@ -8,8 +8,7 @@ const router = require('./routes/index');
 const app = express();
 const port = 3000;
 
-// block cors error
-// app.use(cors());
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
