@@ -8,7 +8,7 @@ const mailTemplate = require('../untils/mailTemplate');
 
 class MissionController {
     async getMissionList(req, res) {
-        const missionList = await Mission.find({});
+        const missionList = await Mission.find({}).sort({ status: 1 });
         return res.status(200).json(missionList);
     }
     async addMission(req, res) {

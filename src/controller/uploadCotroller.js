@@ -10,6 +10,7 @@ const Mission = require('../models/Mission');
 class UploadController {
     async uploadFileProof(req, res) {
         const file = req.file;
+        console.log(file);
         // const storageRef = ref(storage, 'proof/test');
         const storageRef = ref(storage, 'proof/' + req.params.missionId);
         const metadata = { contentType: file.mimetype };
