@@ -25,9 +25,17 @@ class MissionController {
         );
     }
     async changeStatus(req, res) {
-        await Mission.findByIdAndUpdate(req.params.missionId, {
+        const mission = await Mission.findByIdAndUpdate(req.params.missionId, {
             $set: { status: req.query.status },
-        }).then((mission) => res.status(200).json(mission));
+        });
+        if (!mission) {
+            return res.status(404).json({
+                message: 'Mission not found',
+            });
+        }
+        await Mission.findById(mission._id).then((missionIn4) =>
+            res.status(200).json(missionIn4)
+        );
     }
     async sendMailOfMission(req, res) {
         const mission = await Mission.findOne({ _id: req.params.missionId });
